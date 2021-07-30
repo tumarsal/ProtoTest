@@ -63,6 +63,7 @@ extension DocumentViewController: QLPreviewControllerDataSource {
             return NSURL()
         }
         let filename = loadedIssueDocument.filename
+        print("URLs: \(listFilesFromDocumentsFolder())")
         guard let fileUrl = Bundle.main.url(forResource: filename, withExtension: nil)
             else {
             guard let fileUrl2 = Bundle.main.url(forResource: "doc1.pdf", withExtension: nil)
@@ -73,4 +74,21 @@ extension DocumentViewController: QLPreviewControllerDataSource {
         }
         return fileUrl as QLPreviewItem
     }
+}
+extension FileManager {
+    func urls(for directory: FileManager.SearchPathDirectory, skipsHiddenFiles: Bool = true ) -> [URL]? {
+        let documentsURL = urls(for: directory, in: .userDomainMask)[0]
+        let fileURLs = try? contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil, options: skipsHiddenFiles ? .skipsHiddenFiles : [] )
+        return fileURLs
+    }
+}
+func listFilesFromDocumentsFolder() -> [String]?
+{
+    let fileMngr = FileManager.default;
+
+    // Full path to documents directory
+    let docs = fileMngr.urls(for: .documentDirectory, in: .userDomainMask)[0].path
+
+    // List all contents of directory and return as [String] OR nil if failed
+    return try? fileMngr.contentsOfDirectory(atPath:docs)
 }

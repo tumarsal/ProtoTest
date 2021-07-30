@@ -45,6 +45,7 @@ class TaskViewController : UIViewController {
         alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
             self.task.status = .Approved
             self.statusLabel.text = self.task.statusText()
+            mainData.save()
         }))
         alert.addAction(UIAlertAction(title: "Нет", style: .default, handler: { action in
             // self.task.status = .NotApproved

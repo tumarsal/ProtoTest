@@ -32,7 +32,7 @@ class UserCreateController : UIViewController {
                              password:  password.text ?? "")
         user.selected = true
         mainData.users.append(user)
-        
+        mainData.save()
         self.navigationController?.popViewController(animated: true)
     }
 }

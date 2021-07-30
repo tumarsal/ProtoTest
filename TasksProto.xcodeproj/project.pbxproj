@@ -29,6 +29,16 @@
 		04A4095A26AEA8810053AE9C /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4095326AEA8810053AE9C /* UserDefaults.swift */; };
 		04A4095B26AEA8810053AE9C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4095426AEA8810053AE9C /* String.swift */; };
 		04A4095E26AEA8E20053AE9C /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 04A4095D26AEA8E20053AE9C /* SwiftyJSON */; };
+		04BF0D7126B4395600254FE8 /* doc11.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = 04F60D9326B16A4900A7B049 /* doc11.xlsx */; };
+		04BF0D7226B4395600254FE8 /* doc2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 04F60D9926B16A7E00A7B049 /* doc2.pdf */; };
+		04BF0D7326B4395600254FE8 /* doc6.xls in Resources */ = {isa = PBXBuildFile; fileRef = 04F60D9626B16A5100A7B049 /* doc6.xls */; };
+		04BF0D7426B4395600254FE8 /* doc4.docx in Resources */ = {isa = PBXBuildFile; fileRef = 04F60D9426B16A5000A7B049 /* doc4.docx */; };
+		04BF0D7526B4395600254FE8 /* doc5.doc in Resources */ = {isa = PBXBuildFile; fileRef = 04F60D9526B16A5000A7B049 /* doc5.doc */; };
+		04BF0D7626B4395600254FE8 /* doc9.doc in Resources */ = {isa = PBXBuildFile; fileRef = 04F60D9126B16A4900A7B049 /* doc9.doc */; };
+		04BF0D7726B4395600254FE8 /* doc7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04F60D9726B16A5100A7B049 /* doc7.jpg */; };
+		04BF0D7826B4395600254FE8 /* doc8.docx in Resources */ = {isa = PBXBuildFile; fileRef = 04F60D9226B16A4900A7B049 /* doc8.docx */; };
+		04BF0D7926B4395600254FE8 /* doc3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 04F60D9826B16A5600A7B049 /* doc3.pdf */; };
+		04BF0D7A26B4395600254FE8 /* doc10.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 04F60D9026B16A4900A7B049 /* doc10.pdf */; };
 		04F60D7526B0958700A7B049 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 04F60D7426B0958700A7B049 /* data.json */; };
 		04F60D7726B09F7100A7B049 /* DocumentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F60D7626B09F7100A7B049 /* DocumentsViewController.swift */; };
 		04F60D7B26B0AA2E00A7B049 /* HistoryTreeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F60D7A26B0AA2E00A7B049 /* HistoryTreeController.swift */; };
@@ -36,7 +46,6 @@
 		04F60D8926B0AABF00A7B049 /* LNZTreeViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F60D8626B0AABF00A7B049 /* LNZTreeViewDelegate.swift */; };
 		04F60D8A26B0AABF00A7B049 /* LNZTreeViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F60D8726B0AABF00A7B049 /* LNZTreeViewDataSource.swift */; };
 		04F60D8F26B167A900A7B049 /* doc1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 04F60D8E26B167A900A7B049 /* doc1.pdf */; };
-		04F60D9A26B16A7E00A7B049 /* doc2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 04F60D9926B16A7E00A7B049 /* doc2.pdf */; };
 		04F60D9C26B179E800A7B049 /* RequireUserApprove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F60D9B26B179E800A7B049 /* RequireUserApprove.swift */; };
 		5BA8A121ED8D11539EC94298 /* Pods_TasksProto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 300914C0042B08498DF61BA2 /* Pods_TasksProto.framework */; };
 /* End PBXBuildFile section */
@@ -295,12 +304,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04BF0D7626B4395600254FE8 /* doc9.doc in Resources */,
 				049DA19726AAFFE70090B2A5 /* LaunchScreen.storyboard in Resources */,
-				04F60D9A26B16A7E00A7B049 /* doc2.pdf in Resources */,
+				04BF0D7526B4395600254FE8 /* doc5.doc in Resources */,
+				04BF0D7326B4395600254FE8 /* doc6.xls in Resources */,
+				04BF0D7726B4395600254FE8 /* doc7.jpg in Resources */,
 				049DA19426AAFFE70090B2A5 /* Assets.xcassets in Resources */,
+				04BF0D7826B4395600254FE8 /* doc8.docx in Resources */,
+				04BF0D7926B4395600254FE8 /* doc3.pdf in Resources */,
 				049DA18F26AAFFE40090B2A5 /* Main.storyboard in Resources */,
+				04BF0D7226B4395600254FE8 /* doc2.pdf in Resources */,
 				04F60D7526B0958700A7B049 /* data.json in Resources */,
 				04F60D8F26B167A900A7B049 /* doc1.pdf in Resources */,
+				04BF0D7426B4395600254FE8 /* doc4.docx in Resources */,
+				04BF0D7A26B4395600254FE8 /* doc10.pdf in Resources */,
+				04BF0D7126B4395600254FE8 /* doc11.xlsx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
