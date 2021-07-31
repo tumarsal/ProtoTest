@@ -36,6 +36,10 @@ class TaskViewController : UIScrollViewController {
                 approveButton.isHidden = true
                 notApproveButton.isHidden = true
             }
+            if  appointment.waitChild() {
+                requireAdditionalApprove.isHidden = true
+               
+            }
         }
        
         if task.documents.count == 0 {
