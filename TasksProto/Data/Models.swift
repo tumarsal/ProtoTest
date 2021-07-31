@@ -162,18 +162,25 @@ class UserModel:JSONModel{
 class TaskModel:JSONModel{
     let name:String
     let description:String
-    var status:TaskStatus
     let documents:[DocumentModel]
     var appointment:[TaskAppointmentModel]
     let limit_date:Date
-    
+    let author:String
+    let sum:String
+    let sum_no_nds:String
+    let responsible:String
+    let buy_type:String
     required init(fromJson json: JSON) {
         name = json["name"].stringValue
-        let status:TaskStatus = json["status"].enum() ?? .NotApproved
-        self.status = status
         description = json["description"].stringValue
+        author = json["author"].stringValue
+        sum_no_nds = json["sum_no_nds"].stringValue
+        sum = json["sum"].stringValue
+        responsible = json["responsible"].stringValue
+        buy_type = json["buy_type"].stringValue
         documents = json["documents"].asArrayValue()
         appointment = json["appointment"].asArrayValue()
+        
         limit_date = json["limit_date"].dateValue(format:"dd.MM.yyyy")
         
     }
@@ -181,23 +188,20 @@ class TaskModel:JSONModel{
         let text = limit_date.format("dd.MM.yyyy")
        return limit_date < Date()
     }
-    func statusText() -> String {
-        switch self.status {
-        case .Approved:
-            return "Согласован"
-        case .WaitApprove:
-            return "Ожидает согласования"
-        default:
-            return "Не согласован"
+    func statusForUser(userId:Int) -> TaskStatus {
+        if let appointment = getUserAppointment(userId: userId)  {
+            return appointment.status
         }
+        return TaskStatus.NotApproved
     }
+  
     func json() -> JSON {
         var json = JSON()
         json.setValue("name", name)
-        json.setValue("status", status)
         json.setValue("description", description)
         json.setValue("documents", documents)
         json.setValue("appointment", appointment)
+        
         json.setValue("limit_date", limit_date,format:"dd.MM.yyyy")
         return json
     }
@@ -247,6 +251,7 @@ class TaskModel:JSONModel{
         }
         while app.count > 0 {
             let item = app[0]
+            app.remove(at: 0)
             if item.userId == userId {
                 return item
             }
@@ -260,14 +265,29 @@ class TaskModel:JSONModel{
         return nil
     }
 }
-enum TaskStatus:UInt8{
-    case WaitApprove = 1
-    case Approved = 2
-    case NotApproved = 3
+enum TaskStatus:String{
+    case WaitApprove = "WAIT"
+    case Approved =  "APPROVED"
+    case NotApproved = "NOT_APPROVED"
+    case NeedAdditionalApprove = "WAIT_AD_APPROVE"
+}
+extension TaskStatus {
+    func statusText() -> String {
+        switch self {
+        case .Approved:
+            return "Согласован"
+        case .WaitApprove:
+            return "Ожидает согласования"
+        case .NeedAdditionalApprove:
+            return "Ожидает доп согласовании"
+        default:
+            return "Не согласован"
+        }
+    }
 }
 class TaskAppointmentModel:JSONModel,TreeNodeProtocol {
     let userId:Int
-    let status:TaskStatus
+    var status:TaskStatus
     var children:[TaskAppointmentModel]?
     var date:Date
     var identifier: String

@@ -20,19 +20,23 @@ class TaskViewCell :UITableViewCell {
             statusLabel.textColor = UIColor.red
             
         } else {
-            statusLabel.text = model.statusText()
-            switch model.status {
+            let userId = mainData.currentUser.id;
+            let status = model.statusForUser(userId: userId)
+
+            statusLabel.text = status.statusText()
+            switch status {
             case .Approved:
                 statusLabel.textColor = UIColor.green
             case .NotApproved:
-                statusLabel.textColor = UIColor.yellow
+                statusLabel.textColor = hexStringToUIColor(hex: "#fcc41c")
             case .WaitApprove:
-                statusLabel.textColor = UIColor.yellow
+                statusLabel.textColor = hexStringToUIColor(hex:"#fcc41c")
+            case .NeedAdditionalApprove:
+                statusLabel.textColor = UIColor.black
             }
         }
         
-        
-        limitDateLabel.text = model.limit_date.format("dd.MM.YY")
+        limitDateLabel.text = model.limit_date.format("dd.MM.yyyy")
     }
 }
 
@@ -55,6 +59,7 @@ class TasksController : UITableViewController {
     func identifier(for f:IndexPath) -> String{
                 return "cell"
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         if let taskView = segue.destination as? TaskViewController,
