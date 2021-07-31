@@ -130,7 +130,7 @@ extension HistoryTreeController: LNZTreeViewDataSource {
             cell.imageView?.image = nil
         }
         
-        cell.textLabel?.text = "\(node.text) \(node.statusText())"
+        cell.textLabel?.text = "\(node.text) - \(node.statusText())"
         cell.textLabel?.numberOfLines = 2;
         cell.textLabel?.sizeToFit()
        // cell.detailTextLabel?.text = node.date.format("dd.MM.YYYY")

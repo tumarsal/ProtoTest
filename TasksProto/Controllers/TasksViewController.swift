@@ -21,18 +21,20 @@ class TaskViewCell :UITableViewCell {
             
         } else {
             let userId = mainData.currentUser.id;
-            let status = model.statusForUser(userId: userId)
-
-            statusLabel.text = status.statusText()
-            switch status {
-            case .Approved:
-                statusLabel.textColor = UIColor.green
-            case .NotApproved:
-                statusLabel.textColor = hexStringToUIColor(hex: "#fcc41c")
-            case .WaitApprove:
-                statusLabel.textColor = hexStringToUIColor(hex:"#fcc41c")
-            case .NeedAdditionalApprove:
-                statusLabel.textColor = UIColor.black
+          
+            if let appointment = model.getUserAppointment(userId: userId){
+                let status = appointment.status
+                statusLabel.text = appointment.statusText()
+                switch status {
+                case .Approved:
+                    statusLabel.textColor = UIColor.green
+                case .NotApproved:
+                    statusLabel.textColor = hexStringToUIColor(hex: "#fcc41c")
+                case .WaitApprove:
+                    statusLabel.textColor = hexStringToUIColor(hex:"#fcc41c")
+               
+                    
+                }
             }
         }
         

@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-class TaskViewController : UIViewController {
+class TaskViewController : UIScrollViewController {
     
     @IBOutlet var nameLabel:UILabel!
     @IBOutlet var descriptionLabel:UILabel!
@@ -30,7 +30,7 @@ class TaskViewController : UIViewController {
         self.nameLabel.text = task.name
         self.descriptionLabel.text = task.description
         if let appointment = task.getUserAppointment(userId: mainData.currentUser.id) {
-            self.statusLabel.text = appointment.status.statusText()
+            self.statusLabel.text = appointment.statusText()
             if appointment.status == .Approved {
                 requireAdditionalApprove.isHidden = true
                 approveButton.isHidden = true
@@ -44,10 +44,10 @@ class TaskViewController : UIViewController {
             self.docsButton.setTitle("Документы (\(task.documents.count))", for: .normal)
         }
         authorLabel.text = task.author
-        availibilityLabel.text = task.author
-        sumLabel.text = task.author
-        sumNoNdsLabel.text = task.author
-        buyTypeLabel.text = task.author
+        availibilityLabel.text = task.responsible
+        sumLabel.text = task.sum
+        sumNoNdsLabel.text = task.sum_no_nds
+        buyTypeLabel.text = task.buy_type
         
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -65,10 +65,13 @@ class TaskViewController : UIViewController {
     @IBAction func approve() {
         let alert = UIAlertController(title: "Соглосование документа", message: "Согласовать документ?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
-            self.task.getUserAppointment(userId: mainData.currentUser.id)?.status = .Approved
+            if let appointment = self.task.getUserAppointment(userId: mainData.currentUser.id) {
+                appointment.status = .Approved
+               
+                self.statusLabel.text = appointment.statusText()
+                mainData.save()
+            }
            
-            self.statusLabel.text = TaskStatus.Approved.statusText()
-            mainData.save()
         }))
         alert.addAction(UIAlertAction(title: "Нет", style: .default, handler: { action in
             // self.task.status = .NotApproved
@@ -81,10 +84,12 @@ class TaskViewController : UIViewController {
         let alert = UIAlertController(title: "Соглосование документа",
                                       message: "Отказать в соглосовании?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
-            self.task.getUserAppointment(userId: mainData.currentUser.id)?.status = .NotApproved
-           
-            self.statusLabel.text = TaskStatus.NotApproved.statusText()
-            mainData.save()
+            if let appointment = self.task.getUserAppointment(userId: mainData.currentUser.id) {
+                appointment.status = .NotApproved
+               
+                self.statusLabel.text = appointment.statusText()
+                mainData.save()
+            }
         }))
         alert.addAction(UIAlertAction(title: "Нет", style: .default, handler: { action in
             // self.task.status = .NotApproved

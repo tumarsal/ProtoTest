@@ -269,22 +269,8 @@ enum TaskStatus:String{
     case WaitApprove = "WAIT"
     case Approved =  "APPROVED"
     case NotApproved = "NOT_APPROVED"
-    case NeedAdditionalApprove = "WAIT_AD_APPROVE"
 }
-extension TaskStatus {
-    func statusText() -> String {
-        switch self {
-        case .Approved:
-            return "Согласован"
-        case .WaitApprove:
-            return "Ожидает согласования"
-        case .NeedAdditionalApprove:
-            return "Ожидает доп согласовании"
-        default:
-            return "Не согласован"
-        }
-    }
-}
+
 class TaskAppointmentModel:JSONModel,TreeNodeProtocol {
     let userId:Int
     var status:TaskStatus
@@ -298,13 +284,22 @@ class TaskAppointmentModel:JSONModel,TreeNodeProtocol {
     func statusText() -> String {
         switch self.status {
         case .Approved:
+           
             return "Согласован"
+            
         case .WaitApprove:
+            if waitChild() {
+                return "Ожидает доп. согласования"
+            }
             return "Ожидает согласования"
+        
+           
         default:
             return "Не согласован"
         }
     }
+   
+    
     init( userId:Int,
      status:TaskStatus,
      date:Date,
@@ -335,6 +330,14 @@ class TaskAppointmentModel:JSONModel,TreeNodeProtocol {
         
         date = Date()
         text = identifier
+    }
+    func waitChild() -> Bool {
+        if let children = self.children {
+            return children.contains { w in
+                w.status == .WaitApprove
+            }
+        }
+        return false
     }
     
     func json() -> JSON {
