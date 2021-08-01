@@ -24,7 +24,7 @@ class TaskViewCell :UITableViewCell {
                 limitDateLabel.text = appointment.limit_date.format("dd.MM.yyyy")
                 limitDateLabel.textColor = UIColor.red
             } else {
-           
+                limitDateLabel.textColor = UIColor.black
                 let status = appointment.status
                 statusLabel.text = appointment.statusText()
                 switch status {
