@@ -15,14 +15,16 @@ class TaskViewCell :UITableViewCell {
     
     func bind(_ model:TaskModel){
         nameLabel.text = model.name
-        if model.isDeadline() {
-            statusLabel.text = "Просрочено"
-            statusLabel.textColor = UIColor.red
-            
-        } else {
-            let userId = mainData.currentUser.id;
-          
-            if let appointment = model.getUserAppointment(userId: userId){
+        let userId = mainData.currentUser.id;
+      
+        if let appointment = model.getUserAppointment(userId: userId){
+            if appointment.isDeadline() {
+                statusLabel.text = "Просрочено"
+                statusLabel.textColor = UIColor.red
+                limitDateLabel.text = appointment.limit_date.format("dd.MM.yyyy")
+                limitDateLabel.textColor = UIColor.red
+            } else {
+           
                 let status = appointment.status
                 statusLabel.text = appointment.statusText()
                 switch status {
@@ -35,10 +37,11 @@ class TaskViewCell :UITableViewCell {
                
                     
                 }
+                limitDateLabel.text = appointment.limit_date.format("dd.MM.yyyy")
             }
         }
         
-        limitDateLabel.text = model.limit_date.format("dd.MM.yyyy")
+      
     }
 }
 

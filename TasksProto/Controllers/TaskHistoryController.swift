@@ -18,7 +18,7 @@ class HistoryItemViewCell: UITableViewCell {
     func bind(_ model:TaskModel) {
         nameLabel.text = model.name
         descriptionLabel.text = model.description
-        patronymicLabel.text = model.limit_date.format("dd.MM.YY")
+       
     }
 }
 

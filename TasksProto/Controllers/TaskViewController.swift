@@ -31,14 +31,14 @@ class TaskViewController : UIScrollViewController {
         self.descriptionLabel.text = task.description
         if let appointment = task.getUserAppointment(userId: mainData.currentUser.id) {
             self.statusLabel.text = appointment.statusText()
-            if appointment.status == .Approved {
+            if appointment.status == .Approved || appointment.status == .NotApproved {
                 requireAdditionalApprove.isHidden = true
                 approveButton.isHidden = true
                 notApproveButton.isHidden = true
             }
             if  appointment.waitChild() {
-                requireAdditionalApprove.isHidden = true
-               
+                approveButton.isHidden = true
+                notApproveButton.isHidden = true
             }
         }
        

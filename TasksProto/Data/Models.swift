@@ -164,7 +164,7 @@ class TaskModel:JSONModel{
     let description:String
     let documents:[DocumentModel]
     var appointment:[TaskAppointmentModel]
-    let limit_date:Date
+    
     let author:String
     let sum:String
     let sum_no_nds:String
@@ -181,13 +181,10 @@ class TaskModel:JSONModel{
         documents = json["documents"].asArrayValue()
         appointment = json["appointment"].asArrayValue()
         
-        limit_date = json["limit_date"].dateValue(format:"dd.MM.yyyy")
+    
         
     }
-    func isDeadline() -> Bool{
-        let text = limit_date.format("dd.MM.yyyy")
-       return limit_date < Date()
-    }
+    
     func statusForUser(userId:Int) -> TaskStatus {
         if let appointment = getUserAppointment(userId: userId)  {
             return appointment.status
@@ -202,7 +199,7 @@ class TaskModel:JSONModel{
         json.setValue("documents", documents)
         json.setValue("appointment", appointment)
         
-        json.setValue("limit_date", limit_date,format:"dd.MM.yyyy")
+       
         return json
     }
     func allAppointments() -> [TaskAppointmentModel] {
@@ -275,11 +272,16 @@ class TaskAppointmentModel:JSONModel,TreeNodeProtocol {
     let userId:Int
     var status:TaskStatus
     var children:[TaskAppointmentModel]?
-    var date:Date
+  
+    let limit_date:Date
     var identifier: String
     var text:String
     var isExpandable: Bool {
         return children != nil || children?.count == 0
+    }
+    func isDeadline() -> Bool{
+        let text = limit_date.format("dd.MM.yyyy")
+       return limit_date < Date()
     }
     func statusText() -> String {
         switch self.status {
@@ -307,7 +309,7 @@ class TaskAppointmentModel:JSONModel,TreeNodeProtocol {
      text:String) {
         self.userId = userId
         self.status = status
-        self.date = date
+        self.limit_date = date
         self.identifier = identifier
         self.text = text
         self.children = nil
@@ -317,7 +319,7 @@ class TaskAppointmentModel:JSONModel,TreeNodeProtocol {
         identifier = "\(arc4random()%UInt32.max)"
         status = json["status"].enumValue()
         children = json["children"].asArray()
-        date = json["date"].dateValue(format: "dd.MM.yyyy")
+        limit_date = json["limit_date"].dateValue(format: "dd.MM.yyyy")
         text = json["text"].stringValue
         
     }
@@ -328,7 +330,7 @@ class TaskAppointmentModel:JSONModel,TreeNodeProtocol {
         
         status = .Approved
         
-        date = Date()
+        limit_date = Date()
         text = identifier
     }
     func waitChild() -> Bool {
@@ -345,7 +347,7 @@ class TaskAppointmentModel:JSONModel,TreeNodeProtocol {
         json.setValue("user_id", userId)
         json.setValue("status", status)
         json.setValue("children", children)
-        json.setValue("date", date,format:"dd.MM.yyyy")
+        json.setValue("limit_date", limit_date,format:"dd.MM.yyyy")
         json.setValue("text", text)
         return json
     }
