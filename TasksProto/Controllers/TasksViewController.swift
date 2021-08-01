@@ -18,8 +18,8 @@ class TaskViewCell :UITableViewCell {
         let userId = mainData.currentUser.id;
       
         if let appointment = model.getUserAppointment(userId: userId){
-            if appointment.isDeadline() {
-                statusLabel.text = "Просрочено"
+            if appointment.isDeadline() && appointment.status == .WaitApprove {
+                statusLabel.text = appointment.statusText()
                 statusLabel.textColor = UIColor.red
                 limitDateLabel.text = appointment.limit_date.format("dd.MM.yyyy")
                 limitDateLabel.textColor = UIColor.red
@@ -34,8 +34,6 @@ class TaskViewCell :UITableViewCell {
                     statusLabel.textColor = hexStringToUIColor(hex: "#fcc41c")
                 case .WaitApprove:
                     statusLabel.textColor = hexStringToUIColor(hex:"#fcc41c")
-               
-                    
                 }
                 limitDateLabel.text = appointment.limit_date.format("dd.MM.yyyy")
             }

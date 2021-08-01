@@ -69,7 +69,8 @@ class RequireUserApproveViewController: UITableViewController {
  */
         self.showDatePicker { success, date in
             if success {
-                let ta = TaskAppointmentModel.init(userId: user.id, status: .NotApproved, date: date, identifier: "\(user.first_name) \(user.last_name)", text: "\(user.first_name) \(user.last_name)")
+                let ta = TaskAppointmentModel.init(userId: user.id, status: .WaitApprove,
+                                                   date: date, identifier: "\(user.first_name) \(user.last_name)", text: "\(user.first_name) \(user.last_name)")
                 if let at =  self.task.getUserAppointment(userId: mainData.currentUser.id) {
                     if at.children == nil{
                         at.children = [ta]
