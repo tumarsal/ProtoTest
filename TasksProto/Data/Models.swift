@@ -199,7 +199,11 @@ class TaskModel:JSONModel{
         json.setValue("documents", documents)
         json.setValue("appointment", appointment)
         
-       
+        json.setValue("author", author)
+        json.setValue("sum_no_nds", sum_no_nds)
+        json.setValue("sum", sum)
+        json.setValue("responsible", responsible)
+        json.setValue("buy_type", buy_type)
         return json
     }
     func allAppointments() -> [TaskAppointmentModel] {
